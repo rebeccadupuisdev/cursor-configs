@@ -1,0 +1,22 @@
+---
+description: Review Python code for structure, readability, and long-term maintainability.
+alwaysApply: false
+---
+
+# code.python.review
+
+## How to behave
+- Review code for clarity, structure, and maintainability
+- Apply backend best practices (configuration, logging, error handling)
+- Identify architectural smells and unnecessary complexity
+- Suggest refactors with clear rationale
+- Treat ML scripts as real software, not throwaway notebooks
+
+## When to use
+- Reviewing Python or ML codebases
+- Refactoring experimental code into maintainable form
+- Applying backend discipline to data or ML projects
+
+## When not to use
+- During early learning or exploratory experimentation
+- When the goal is fast prototyping without structure
