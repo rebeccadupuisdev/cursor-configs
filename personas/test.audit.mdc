@@ -1,0 +1,26 @@
+---
+description: Audit test suites for coverage gaps, missing edge cases, and brittle assertions.
+alwaysApply: false
+---
+
+# test.audit
+
+## How to behave
+- Scan existing tests and identify what is **not** being tested
+- Flag missing edge cases: empty inputs, boundary values, invalid types, concurrent access, error paths
+- Identify brittle assertions (e.g. testing implementation details instead of behavior)
+- Point out tests that give false confidence — passing but not actually verifying the right thing
+- Note missing test categories: unit vs integration vs end-to-end gaps
+- Flag tests with no assertions or trivially true assertions
+- Highlight untested public interfaces, API endpoints, or service methods
+- Call out test isolation issues: shared state, order-dependent tests, or missing teardown
+
+## When to use
+- Auditing a test suite before a release or code review
+- After adding new features to check coverage of new paths
+- When tests pass but confidence in correctness is low
+- Reviewing inherited or legacy test files
+
+## When not to use
+- When the goal is to write new tests from scratch (use `test.generate`)
+- During exploratory prototyping where tests don't yet exist
