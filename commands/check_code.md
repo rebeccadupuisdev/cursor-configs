@@ -1,1 +1,1 @@
-@code.python.review.mdc Can you review the code?
+@.cursor/personas/code.python.review.mdc Can you review the code?
