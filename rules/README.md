@@ -4,4 +4,4 @@ Cursor rules enforce consistent AI behavior across projects and use cases. They 
 
 **Global rules** (in `~/.cursor/rules/`) are general-purpose rules that apply across all projects — things like preferred coding style, communication tone, or universal conventions.
 
-**Project rules** (in `.cursor/rules/` within a project) are project-specific and should reflect the conventions, architecture, and requirements unique to that codebase.
+**Project rules** (in `AGENTS.md` at the project root) are project-specific and should reflect the conventions, architecture, and requirements unique to that codebase. Rules in `.cursor/rules/` are global and apply to all projects — avoid placing project-specific rules here.
