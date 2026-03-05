@@ -1,0 +1,64 @@
+---
+description: "HTMX patterns and Jinja2 template conventions"
+globs: frontend/templates/**/*.html
+alwaysApply: false
+---
+
+# HTMX & Jinja2 Patterns
+
+## HTMX Core Rules
+- Use `hx-get` for data fetching from FastAPI endpoints
+- Use `hx-target` to specify exactly where fragments land in the DOM
+- Use `hx-trigger="load"` for initial data loads on page sections
+- Never return full HTML pages from HTMX endpoints — fragments only
+- Fragments live in `frontend/templates/partials/`
+
+## Template Structure
+- Every template must extend `base.html` using `{% extends "base.html" %}`
+- `base.html` loads Tailwind (CDN) and HTMX (CDN)
+- Section containers declare their `hx-get` target on page load
+
+## Example section pattern
+```html
+<!-- In index.html -->
+<section
+  hx-get="/section/overview"
+  hx-trigger="load"
+  hx-target="#overview-content">
+  <div id="overview-content">
+    <!-- Fragment loads here -->
+  </div>
+</section>
+
+<!-- In templates/partials/overview.html -->
+<div>
+  <!-- Content renders here -->
+</div>
+```
+
+## Tailwind
+- Utility classes only — no custom CSS unless absolutely necessary
+- Use Tailwind's prose classes for narrative text sections
+
+## ECharts (only if this project uses charts)
+If the project includes data visualisation, load ECharts v5 in `base.html`:
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+```
+
+- Always use ECharts **v5** syntax
+- Initialise charts with `echarts.init(el)` inside the partial's `<script>` block
+- Always call `chart.resize()` on `window resize` to keep charts responsive
+- Pass data from Jinja2 context using `{{ data | tojson }}`
+- Use `echarts.graphic.LinearGradient` for area fills
+- Use `markPoint` for annotating significant data points (min, max, key events)
+
+```html
+<!-- Example chart partial -->
+<div id="overviewChart" style="width:100%;height:350px;"></div>
+<script>
+  const chart = echarts.init(document.getElementById('overviewChart'));
+  chart.setOption({ /* ECharts v5 option object goes here */ });
+  window.addEventListener('resize', () => chart.resize());
+</script>
+```
