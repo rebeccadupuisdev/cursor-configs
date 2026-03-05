@@ -1,0 +1,33 @@
+---
+description: "Decisions that belong to the developer — do not override or suggest alternatives unprompted"
+alwaysApply: true
+---
+
+# Developer Ownership
+
+The following decisions belong to the developer and should **never** be overridden or second-guessed unless explicitly asked.
+
+## Data Interpretation
+- Which numbers to highlight or feature prominently
+- How to frame trends and what they mean in context
+- What narrative angle to take on the data
+
+## Narrative & Language
+- Section titles, chart titles, and axis labels
+- Any written commentary or introductory text accompanying visualisations
+- Any bilingual or localised UI strings — the developer owns these
+
+## Design Decisions
+- Colour palette and visual hierarchy
+- Layout and section ordering
+- What to emphasise visually
+
+## Default Stack Preferences
+Unless a project specifies otherwise, assume this preferred stack:
+
+- **Backend:** FastAPI (not Flask, Django, or any other framework)
+- **Frontend:** HTMX + Tailwind CSS (not React, Vue, or Alpine.js)
+- **Charts:** ECharts v5 (not Chart.js, D3, Recharts, or Plotly)
+- **Templates:** Jinja2
+
+Do not suggest alternatives to these unless a hard technical blocker is encountered.
