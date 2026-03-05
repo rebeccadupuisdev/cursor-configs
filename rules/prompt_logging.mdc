@@ -1,0 +1,46 @@
+---
+description: "Remind the developer to log prompts in PROMPT_LOG.md after significant code generation"
+alwaysApply: true
+---
+
+Only follow these instructions if `PROMPT_LOG.md` exists in the project root. If it does not exist, ignore this rule entirely.
+
+# Prompt Logging
+
+This project maintains a `PROMPT_LOG.md` to document the AI-assisted development process for portfolio and review purposes.
+
+## When to Remind
+After generating any of the following, automatically append a prefilled entry to `PROMPT_LOG.md`:
+- A new route or endpoint
+- A new template or partial
+- A data cleaning or transformation function
+- A chart or visualisation
+- Any significant refactor or bug fix
+
+## Behaviour After Significant Code Generation
+Fill in every field you can from context. Mark fields that require the developer's input with `<!-- your input needed -->`.
+
+## Fields the Agent Fills
+- **Entry number** — increment from the last entry in the file (start at 001 if empty)
+- **Date** — today's date
+- **Section** — infer from the file being edited or the route/template being created
+- **Prompt** — insert developer's actual prompt from the conversation
+- **What was generated** — describe what was produced in one or two sentences
+
+## Fields the Developer Completes
+- **Modifications I made** — only the developer knows what they changed after generation
+- **What I learned** — the developer's own reflection
+
+## Prefilled Entry Format
+```markdown
+## Entry 001 — YYYY-MM-DD
+**Section:** <!-- infer from context -->
+**Prompt:** <!-- the developer's request -->
+**What was generated:** <!-- one or two sentence description -->
+**Modifications I made:** <!-- your input needed -->
+**What I learned:** <!-- your input needed (optional) -->
+```
+
+## Reminder Phrasing
+After appending the prefilled entry, end with:
+> 📝 I've added a prefilled entry to PROMPT_LOG.md — please complete the last two fields when you're done reviewing the code.
