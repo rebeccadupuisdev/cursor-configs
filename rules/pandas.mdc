@@ -1,0 +1,32 @@
+---
+description: "Data loading, cleaning, and Pandas conventions"
+globs:
+  - "services/data_utils.py"
+  - "data/**/*"
+alwaysApply: false
+---
+
+# Data Handling
+
+## Raw Data — Read Only
+- Files in `/data/raw/` are **never modified** — treat as read-only source of truth
+- All cleaning logic lives exclusively in a dedicated utility module (e.g. `data_utils.py`)
+- Cleaned outputs are written to `/data/processed/`
+
+## Loading & Caching
+- DataFrames are loaded once at app startup using FastAPI's `lifespan` event
+- Never re-read CSV files per request — always serve from cached DataFrames
+- Cache using a simple module-level dict or FastAPI app state
+
+## Pandas Conventions
+- Always specify `dtype` when reading CSVs to avoid silent type coercion
+- Column names should be lowercase with underscores (e.g. `monthly_total`)
+- Return plain dicts or lists from data functions — not DataFrames — for JSON serialisation
+
+## Example pattern
+```python
+def get_summary_records() -> list[dict]:
+    """Return records from the cached DataFrame as serialisable dicts."""
+    df = _cache["summary"]  # loaded at startup via lifespan
+    return df[["id", "label", "value"]].to_dict(orient="records")
+```
