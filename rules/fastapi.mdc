@@ -1,0 +1,43 @@
+---
+description: "FastAPI coding conventions for all Python routes and utilities"
+globs: **/*.py
+alwaysApply: false
+---
+
+# FastAPI Conventions
+
+## Routes
+- Always use `async def` for route handlers
+- Use `Jinja2Templates` from `fastapi.templating` for all HTML rendering
+- Detect HTMX requests via header: `request.headers.get("HX-Request")`
+- Return HTML fragments for HTMX requests, JSON for API endpoints
+- Mount static files using `StaticFiles` from `fastapi.staticfiles`
+
+## Example route pattern
+```python
+@router.get("/section/{section_name}")
+async def section_view(request: Request, section_name: str) -> HTMLResponse:
+    data = get_section_data(section_name)  # from data_utils
+    if request.headers.get("HX-Request"):
+        return templates.TemplateResponse(
+            f"partials/{section_name}.html",
+            {"request": request, "data": data}
+        )
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request, "data": data}
+    )
+```
+
+## Type Hints & Validation
+- Type hints are required on all functions — FastAPI depends on them
+- Use Pydantic models for any request/response schemas
+- Never use bare `dict` as a return type where a model can be defined
+
+## Code Style
+- Docstrings on all route handlers and utility functions
+- Keep route files thin — business logic belongs in utility modules (e.g. `data_utils.py`)
+- Group related routes using `APIRouter`
+
+## Dev Server
+Run with: `uvicorn main:app --reload`
