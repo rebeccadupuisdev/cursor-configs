@@ -11,11 +11,16 @@ This project maintains a `PROMPT_LOG.md` to document the AI-assisted development
 
 ## When to Remind
 After generating any of the following, automatically append a prefilled entry to `PROMPT_LOG.md`:
+- A plan for a new feature or significant change
 - A new route or endpoint
 - A new template or partial
 - A data cleaning or transformation function
 - A chart or visualisation
+- A new test suite or set of test cases
+- A database schema change, migration, or model definition
+- A new configuration file, CI/CD pipeline, or environment setup
 - Any significant refactor or bug fix
+- A request for an explanation of how something works or why something was done a certain way
 
 ## Behaviour After Significant Code Generation
 Fill in every field you can from context. Mark fields that require the developer's input with `<!-- your input needed -->`.
@@ -24,6 +29,7 @@ Fill in every field you can from context. Mark fields that require the developer
 - **Entry number** — increment from the last entry in the file (start at 001 if empty)
 - **Date** — today's date
 - **Section** — infer from the file being edited or the route/template being created
+- **Persona** — include the persona name if one was active for this conversation; omit the field entirely if none was set
 - **Prompt** — insert developer's actual prompt from the conversation
 - **What was generated** — describe what was produced in one or two sentences
 
@@ -35,6 +41,7 @@ Fill in every field you can from context. Mark fields that require the developer
 ```markdown
 ## Entry 001 — YYYY-MM-DD
 **Section:** <!-- infer from context -->
+**Persona:** <!-- persona name if active — omit this line if none -->
 **Prompt:** <!-- the developer's request -->
 **What was generated:** <!-- one or two sentence description -->
 **Modifications I made:** <!-- your input needed -->
