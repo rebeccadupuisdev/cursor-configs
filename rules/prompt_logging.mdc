@@ -39,7 +39,7 @@ Fill in every field you can from context. Mark fields that require the developer
 
 ## Prefilled Entry Format
 ```markdown
-## Entry 001 — YYYY-MM-DD
+## Entry [number] — YYYY-MM-DD
 **Section:** <!-- infer from context -->
 **Persona:** <!-- persona name if active — omit this line if none -->
 **Prompt:** <!-- the developer's request -->
