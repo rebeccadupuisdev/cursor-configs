@@ -1,0 +1,32 @@
+---
+description: "Database conventions: MongoDB with Beanie (NoSQL) and SQLAlchemy (SQL)"
+globs: **/*.py
+alwaysApply: false
+---
+
+# Database Conventions
+
+## NoSQL — MongoDB with Beanie
+
+- Use [Beanie](https://beanie-odm.dev/) as the ODM for all MongoDB interactions
+- Define documents by subclassing `beanie.Document`
+- Use Beanie's built-in async methods (`find`, `find_one`, `save`, `delete`, etc.)
+- Never use PyMongo directly — always go through Beanie
+
+```python
+# ✅ GOOD
+class User(Document):
+    name: str
+    email: str
+
+    class Settings:
+        name = "users"
+
+user = await User.find_one(User.email == "a@b.com")
+
+# ❌ BAD — raw PyMongo
+db["users"].find_one({"email": "a@b.com"})
+```
+
+## General
+- Keep DB logic out of route handlers — use repository or service modules
