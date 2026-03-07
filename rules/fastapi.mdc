@@ -39,5 +39,9 @@ async def section_view(request: Request, section_name: str) -> HTMLResponse:
 - Keep route files thin — business logic belongs in utility modules (e.g. `data_utils.py`)
 - Group related routes using `APIRouter`
 
+## Configuration
+- Load all environment variables from `.env` using `python-dotenv` (`load_dotenv()` in the app entrypoint)
+- Never hardcode secrets, URIs, or ports — always read from `.env`
+
 ## Dev Server
 Run with: `uvicorn main:app --reload`
