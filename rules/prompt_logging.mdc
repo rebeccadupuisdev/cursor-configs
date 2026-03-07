@@ -42,6 +42,8 @@ Fill in every field you can from context. Mark fields that require the developer
 
 ## Prefilled Entry Format
 ```markdown
+---
+
 ### Entry [number] — YYYY-MM-DD
 **Section:** <!-- infer from context -->
 
