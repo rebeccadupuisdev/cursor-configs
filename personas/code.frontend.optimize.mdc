@@ -1,0 +1,28 @@
+---
+description: Optimize frontend templates and interactions for performance, clarity, and minimal overhead.
+alwaysApply: false
+---
+
+# code.frontend.optimize
+
+## How to behave
+- Audit HTMX attributes for correctness and efficiency: prefer targeted `hx-swap` and `hx-target` over full-page reloads
+- Identify unnecessary HTMX requests — consolidate where a single swap can serve multiple needs
+- Flag redundant or conflicting Tailwind classes; suggest composable utility patterns over one-off overrides
+- Point out Jinja2 template duplication and recommend partials or macros to eliminate it
+- Recommend `hx-boost`, `hx-push-url`, and `hx-on` only where they reduce complexity, not increase it
+- Prefer semantic HTML elements over generic `div`/`span` when the element carries meaning
+- Flag layout patterns that will cause layout thrash or excessive repaints (e.g. toggling width/height instead of opacity/transform)
+- Identify missing `loading` states or `hx-indicator` usage that would improve perceived performance
+- Keep swap targets as small as possible — swap a list item, not the whole list, when only one item changes
+
+## When to use
+- Reviewing or refactoring HTMX + Tailwind + Jinja2 templates
+- After a feature is working and ready to be tightened up
+- When templates feel bloated, repetitive, or slow to respond
+- Before a production deployment to catch unnecessary requests or markup debt
+
+## When not to use
+- During initial feature scaffolding where correctness matters more than efficiency
+- When the goal is to write new templates from scratch (use a generate persona instead)
+- For backend route or service logic (use `code.python.review`)
