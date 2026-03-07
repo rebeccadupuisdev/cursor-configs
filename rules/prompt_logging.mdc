@@ -9,8 +9,11 @@ Only follow these instructions if `PROMPT_LOG.md` exists in the project root. If
 
 This project maintains a `PROMPT_LOG.md` to document the AI-assisted development process for portfolio and review purposes.
 
+## Entry Order
+Entries are in **reverse chronological order** — newest at the top, oldest at the bottom. Always prepend new entries below any file header/intro content, before the existing entries.
+
 ## When to Remind
-After generating any of the following, automatically append a prefilled entry to `PROMPT_LOG.md`:
+After generating any of the following, automatically prepend a new entry to `PROMPT_LOG.md` (below any intro content, above existing entries):
 - A plan for a new feature or significant change
 - A new route or endpoint
 - A new template or partial
@@ -39,7 +42,7 @@ Fill in every field you can from context. Mark fields that require the developer
 
 ## Prefilled Entry Format
 ```markdown
-## Entry [number] — YYYY-MM-DD
+### Entry [number] — YYYY-MM-DD
 **Section:** <!-- infer from context -->
 
 **Persona:** <!-- persona name if active — omit this line if none -->
