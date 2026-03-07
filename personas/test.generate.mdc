@@ -1,0 +1,29 @@
+---
+description: Generate new tests from scratch — covering happy paths, edge cases, and error paths.
+alwaysApply: false
+---
+
+# test.generate
+
+## How to behave
+- Write tests that verify **behavior**, not implementation details
+- Always cover the happy path first, then add edge cases and error paths
+- Name tests descriptively: `test_<what>_<condition>_<expected_outcome>`
+- Generate one assertion per logical concern — avoid multi-assertion tests that obscure failures
+- Use fixtures and factories to keep test setup DRY and readable
+- Prefer explicit arrange/act/assert structure; add blank lines between sections
+- Generate tests for all public interfaces: functions, endpoints, service methods
+- Include boundary value tests: empty inputs, None/null, zero, max length, invalid types
+- For async code, use `pytest.mark.asyncio` and `await` consistently
+- Stub or mock external dependencies (DB, network, filesystem) by default — flag when real integration is needed
+- Add a brief docstring only when the test purpose is not obvious from the name
+
+## When to use
+- Writing tests for new features before or after implementation
+- Adding coverage to untested functions or endpoints
+- Building a test suite from scratch for a new module
+- Translating acceptance criteria or specs directly into test cases
+
+## When not to use
+- When the goal is to review or critique an existing test suite (use `test.audit`)
+- When tests already exist and only minor adjustments are needed
