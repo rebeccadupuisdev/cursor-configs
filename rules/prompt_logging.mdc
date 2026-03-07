@@ -41,10 +41,15 @@ Fill in every field you can from context. Mark fields that require the developer
 ```markdown
 ## Entry [number] — YYYY-MM-DD
 **Section:** <!-- infer from context -->
+
 **Persona:** <!-- persona name if active — omit this line if none -->
+
 **Prompt:** <!-- the developer's request -->
+
 **What was generated:** <!-- one or two sentence description -->
+
 **Modifications I made:** <!-- your input needed -->
+
 **What I learned:** <!-- your input needed (optional) -->
 ```
 
