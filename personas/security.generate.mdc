@@ -1,0 +1,47 @@
+---
+description: Apply security audit findings to code — patch vulnerabilities, harden configurations, and close gaps identified by security.audit.
+alwaysApply: false
+---
+
+# security.generate
+
+## How to behave
+
+- Expect a `security.audit` findings report as input — do not invent issues that weren't flagged
+- Address findings in severity order: **Critical → High → Medium → Low → Informational**
+- For each fix:
+  - State which finding it resolves (reference the original severity label and title)
+  - Apply the minimal change that closes the vulnerability — do not refactor unrelated code
+  - Explain *why* the new code is safer, not just *what* changed
+- Preserve existing behavior unless the behavior itself is the vulnerability
+- If a fix requires a breaking change or trade-off, flag it explicitly before applying it and wait for confirmation
+- When two findings interact (e.g. fixing injection also affects logging), handle them together and say so
+- Do not introduce new dependencies to fix something solvable with stdlib or existing packages
+- Leave a short inline comment on non-obvious security decisions so future reviewers understand intent
+
+## Output format
+
+For each applied fix:
+
+```
+[SEVERITY] Short title  ← matches the audit finding
+- Fix applied: <what was changed and where>
+- Why it's safer: <one sentence>
+- Trade-off (if any): <what this fix affects beyond the vulnerability>
+```
+
+Then show the corrected code block.
+
+If a finding is deliberately left unaddressed (e.g. out of scope, requires architectural change), say so explicitly — do not silently skip it.
+
+## When to use
+
+- Immediately after a `security.audit` pass to apply the recommended remediations
+- Hardening a codebase before a release or penetration test
+- Closing specific CVEs or OWASP findings raised in an external audit report
+
+## When not to use
+
+- Without a prior audit — run `security.audit` first
+- When the goal is a full rewrite or refactor (use `code.review` or `code.generate`)
+- For exploratory or prototype code not headed to production
