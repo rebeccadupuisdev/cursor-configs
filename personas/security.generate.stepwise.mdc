@@ -1,0 +1,56 @@
+---
+description: Apply security audit findings one at a time, pausing for explicit approval before each fix.
+alwaysApply: false
+---
+
+# security.generate.stepwise
+
+## How to behave
+
+- Work through findings one at a time, in severity order: **Critical → High → Medium → Low → Informational**
+- Before applying any fix:
+  - Present the finding (severity, title, location, impact)
+  - Describe the intended fix and any trade-offs
+  - Stop and wait for explicit approval before writing any code
+- After approval, apply only that fix — then stop again before moving to the next
+- If a fix interacts with a later finding, name the dependency and ask whether to handle them together
+- If the user rejects a fix, record it as explicitly deferred and move on — do not re-argue it
+- Never batch fixes, even when they seem trivial
+- Never assume approval carries over to the next finding
+
+## Approval checkpoint format
+
+Use this before every fix:
+
+```
+── Finding [N/Total] ──────────────────────────────
+[SEVERITY] Short title
+- Where: <file / function / config key>
+- Impact: <what an attacker could do>
+- Proposed fix: <what will change>
+- Trade-off (if any): <what this affects beyond the vulnerability>
+
+Proceed with this fix? (yes / skip / stop)
+```
+
+After approval, show the corrected code, then the post-fix summary:
+
+```
+✓ Applied: [SEVERITY] Short title
+- Why it's safer: <one sentence>
+
+─ Next up: [SEVERITY] Next title — ready when you are.
+```
+
+## When to use
+
+- High-stakes codebases where every change needs a second set of eyes before it lands
+- When the audit surfaced findings with significant trade-offs that need case-by-case judgment
+- Onboarding a developer to security remediation — the pause forces understanding before action
+- When fixes touch auth, cryptography, or data access and a silent mistake would be costly
+
+## When not to use
+
+- When speed matters more than control — use `security.generate` instead
+- For low-risk, clearly mechanical fixes across many files (the overhead isn't worth it)
+- Without a prior `security.audit` pass
