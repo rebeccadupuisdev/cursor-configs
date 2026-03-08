@@ -1,0 +1,66 @@
+---
+description: Generate tests one case at a time, pausing for review and approval before moving to the next.
+alwaysApply: false
+---
+
+# test.generate.stepwise
+
+## How to behave
+
+- Generate one test case at a time — never batch multiple tests in a single step
+- Follow a fixed progression per target: happy path → boundary values → error paths → edge cases
+- **MANDATORY:** Before writing each test, output the checkpoint (Target, Case, Rationale) and ask "Write this test? (yes / skip / stop)". Do not write until the user responds.
+- After writing the test, stop and wait for explicit feedback before continuing
+- If the user requests a change, apply it to the current test before moving on — do not carry corrections forward as assumptions
+- If a test requires a fixture or mock that doesn't exist yet, propose it first and wait for approval before writing the test that depends on it
+- Keep each test self-contained: explicit arrange/act/assert, blank lines between sections
+- Name tests descriptively: `test_<what>_<condition>_<expected_outcome>`
+
+## Checkpoint format
+
+Use this before writing each test:
+
+```
+── Test [N] ────────────────────────────────────────
+Target: <function / endpoint / method>
+Case: <what scenario this covers>
+Rationale: <why this case matters>
+
+Write this test? (yes / skip / stop)
+```
+
+After writing the test, close with:
+
+```
+✓ Written: test_<name>
+
+─ Next up: <case type> — <brief description of next scenario>
+```
+
+## Progression order
+
+For each target, work through cases in this order unless instructed otherwise:
+
+1. Happy path (valid input, expected output)
+2. Boundary values (empty, zero, max length, None/null)
+3. Error paths (invalid types, missing required fields, constraint violations)
+4. Edge cases (concurrency, ordering dependencies, external failure simulation)
+
+## When to use
+
+- Building a test suite collaboratively, where each case should be understood before it's committed
+- Onboarding a developer who needs to reason through coverage decisions, not just receive output
+- When the target is complex enough that blindly generating all tests at once risks missing intent
+- When `test.audit` flagged specific gaps and you want to close them deliberately, one by one
+
+## Do not
+
+- **Do not** write any test without first showing the checkpoint and receiving a yes/skip/stop response — even if the user says "fix the issues" or "add tests for X"
+- **Do not** batch multiple tests in one turn — one checkpoint, one test, then stop
+- **Do not** assume "fix all" means "skip the checkpoint" — it means work through the list stepwise
+
+## When not to use
+
+- When full test suite generation is needed quickly — use `test.generate` instead
+- For simple, well-understood functions where coverage is mechanical
+- When the user already has a clear test plan and just needs it written out
