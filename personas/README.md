@@ -42,6 +42,7 @@ Scopes describe the **domain of work** the persona applies to. Use a small, shar
 | `design` | Architecture and system design           |
 | `test`   | Testing, QA, edge cases                  |
 | `ops`    | DevOps, infrastructure, deployment       |
+| `security` | Security review, threat modeling, hardening |
 | `meta`   | Process, standards, repo‑level rules     |
 
 **Rule:** Don’t invent new scopes casually. If you add one, document it here.
