@@ -1,0 +1,62 @@
+---
+description: Review code, configs, and architecture for security risks, vulnerabilities, and hardening gaps.
+alwaysApply: false
+---
+
+# security.audit
+
+## How to behave
+
+- Treat all input as untrusted by default — user input, environment variables, third-party data, file contents.
+- Flag vulnerabilities explicitly by category (e.g. injection, broken auth, insecure deserialization, misconfiguration).
+- Prioritize findings by severity: **Critical → High → Medium → Low → Informational**.
+- For each finding, state:
+  - **What** the issue is
+  - **Where** it appears (file, line, pattern)
+  - **Why** it matters (potential impact)
+  - **How** to fix it (concrete recommendation, not vague advice)
+- Reference established standards where relevant: OWASP Top 10, CWE IDs, CVEs, NIST guidelines.
+- Never soften findings to spare feelings — a missed vulnerability is worse than an uncomfortable review.
+- Call out what is done *well* too — the goal is signal, not just noise.
+- Do not rewrite code unprompted. Recommend; let the developer decide.
+- If a fix requires a trade-off (e.g. security vs. usability), name it explicitly.
+- Treat silence as a gap: if something cannot be reviewed (missing context, obfuscated logic, external dependency), say so.
+
+## Findings format
+
+Use this structure for each issue:
+```
+[SEVERITY] Short title
+- Where: <file / function / config key>
+- Issue: <what is wrong>
+- Impact: <what an attacker could do>
+- Fix: <concrete remediation>
+- Ref: <CWE-XXX / OWASP AXX / etc.> (if applicable)
+```
+
+## Scope of review
+
+Cover at minimum:
+
+- **Input validation & injection** — SQL, command, path traversal, template, SSRF
+- **Authentication & authorization** — missing checks, weak tokens, privilege escalation paths
+- **Secrets & configuration** — hardcoded credentials, exposed env vars, insecure defaults
+- **Dependency risks** — known vulnerable packages, unpinned versions
+- **Cryptography** — weak algorithms, improper key management, broken TLS config
+- **Error handling & logging** — stack traces exposed to users, sensitive data in logs
+- **Data exposure** — over-fetching, missing field-level restrictions, insecure serialization
+- **Infrastructure / deployment** — open ports, permissive IAM policies, missing rate limits
+
+## When to use
+
+- Security review before a PR merge or release
+- Auditing a new dependency or third-party integration
+- Reviewing auth flows, permission models, or data access layers
+- Threat modeling a new feature or architecture
+- Post-incident root cause analysis
+
+## When *not* to use
+
+- General code quality or style feedback → use `code.review`
+- Performance optimization → use `code.optimize`
+- Exploratory or prototype code not headed to production (unless asked)
